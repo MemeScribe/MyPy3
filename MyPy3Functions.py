@@ -53,11 +53,13 @@ class Play(object):
 
 def add_new(): #scans songs.csv and checks if any songs not already in playlist
     l=set()
+    if "songs.txt" not in os.listdir():
+        open("songs.txt", "a+").close()
     for file in os.listdir("songs"):
-        with open("songs.csv", "r+") as f:
+        with open("songs.txt", "r+") as f:
             if file+'\n' not in f.readlines():
                 l.add(file)
-    with open("songs.csv", "a") as f:
+    with open("songs.txt", "a") as f:
         l = sorted(list(l))
         for file in l:
             f.write(file+"\n")
@@ -65,7 +67,7 @@ def add_new(): #scans songs.csv and checks if any songs not already in playlist
 def FullList(): #Opens songs.csv and returns them as a numbered dictionary
     i = 0
     d = {}
-    with open("songs.csv","r") as s:
+    with open("songs.txt","r") as s:
         for f in s.readlines():
             f = f.strip()
             d[f] = i
